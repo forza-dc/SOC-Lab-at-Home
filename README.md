@@ -1,4 +1,4 @@
-# 👨🏻‍💻 🌎 🔐 Building a SOC Analysis Lab Environment At Home 👨🏻‍💻 🌎 🔐
+# 👨🏻‍💻 🌎  Building a SOC Analysis Lab Environment At Home 👨🏻‍💻 🌎 
 ## Lab Overview
 
 This SOC Analyst home lab is an excellent opportunity to learn new skills beyond the basics and fundamentals. It involves a hands-on experience such as setting up virtualized environments, deploying operating systems, honing command line proficiency, and establishing C2 servers. The primary goal of the lab is to provide practical cybersecurity skills, addressing both offensive and defensive roles. It encompasses telemetry and EDR analysis using tools like Sysmon and LimaCharlie.
