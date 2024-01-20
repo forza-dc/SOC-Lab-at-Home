@@ -190,15 +190,44 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 8. As a result of above mentioned command, a payload will be downloaded from Ubuntu server on Windows VM.
 
+## Starting Command and Control Session:
+
+1. Now that the payload is on the Windows VM, we must switch back to the Linux VM SSH session and enable the Sliver HTTP server to catch the callback.
+
+   a. First, terminate the python web server we started by pressing Ctrl + C.
+   b. Relaunch Sliver.
+   c. Start the Sliver HTTP listener.
+
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2021.jpg)  
 
 
+2. Return to the Windows VM and execute the C2 payload from its download location using the same administrative PowerShell prompt we had from before.   
+   
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2022.jpg) 
+
+3. Within a few moments, you should see your session check in on the Sliver server.
+
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2023.jpg) 
 
 
+4. Verify your session in Sliver by typing sessions.
+
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2024.jpg) 
+
+5. To interact with C2 session, type the following command into the Sliver shell, swapping [session_id] with yours
 
 
+        use [session_id]
 
+![image]() 
 
+6. You are now interacting directly with the C2 session on the Windows VM. Let's run a few basic commands.
 
+     a. Get basic info about the session (type info).
+
+     ![image]()
+
+     b. To check privileges, type command getprivs.
 
 
 
