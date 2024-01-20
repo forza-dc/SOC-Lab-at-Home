@@ -4,53 +4,76 @@
 This SOC Analyst home lab is an excellent opportunity to learn new skills beyond the basics and fundamentals. It involves a hands-on experience such as setting up virtualized environments, deploying operating systems, honing command line proficiency, and establishing C2 servers. The primary goal of the lab is to provide practical cybersecurity skills, addressing both offensive and defensive roles. It encompasses telemetry and EDR analysis using tools like Sysmon and LimaCharlie.
 Through this structured exploration, individuals gain a comprehensive understanding of security operations. This knowledge serves as a solid base for a seamless transition into cloud security engineering, enhancing proficiency in handling various cybersecurity challenges.
 
-## Flow Diagram
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%20final.jpg) 
 
-![image](https://github.com/forza-dc/Enhancing-Web-Application-Security-DevSecOps-and-OWASP-ZAP/blob/main/Flow%20Diagram%20Owasp%20Paint%202.png) 
+## Lab Requirements:
 
-## Requirements
+- **Virtualization Platform:**
+  - VMware Workstation
 
-Before proceeding, ensure that you have Kali Linux installed, or have access to a Kali Linux environment to execute the commands and utilize OWASP ZAP for web application security assessments.
+- **Operating Systems:**
+  - Ubuntu Server VM
+    - [Download Ubuntu ISO](https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso)
+  - Windows VM
+    - [Download WinDev2311Eval.zip](https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/)
 
-## Updating Package Lists
+- **Security Tools:**
+  - LimaCharlie
+    - Create an account and configure EDR on Windows VM
+  - Sliver Framework
+    - Set up a Command & Control server on Linux VM
 
-Ensures that the package lists on the Linux system are updated, allowing for upgrades and new package installations.
-          (sudo apt update)
+- **Networking:**
+  - Internet connection for VM downloads and configurations
+  - SSH for Linux VM access
 
-![image](https://github.com/forza-dc/Enhancing-Web-Application-Security-DevSecOps-and-OWASP-ZAP/blob/main/Apt%20Update%20Command.jpg) 
-
-## Installing and Enabling Docker
-
-Setting up Docker involves installing the platform,
-
-          sudo apt install docker.io          
-starting the Docker service,
-
-          sudo systemctl start docker
-and configuring it for automatic initiation during system boot.
-
-          sudo systemctl enable docker
-This facilitates containerization, providing a consistent environment for running applications and ensuring persistent availability.
-
-          sudo systemctl status docker
-
-![image](https://github.com/forza-dc/Enhancing-Web-Application-Security-DevSecOps-and-OWASP-ZAP/blob/main/Docker%20Service%20Start.png) 
+- **Administrative Privileges:**
+  - Ensure administrative privileges for VM configurations
+  - Disable Windows Defender on Windows VM
 
 
-## Pulling OWASP ZAP Docker Image
-Retrieves the Docker image named (zap2docker-weekly), from the (ictu) repository, containing the OWASP ZAP toolset for security scanning.
+## VMware Workstation Configuration:
 
-          sudo docker pull ictu/zap2docker-weekly
+  - Open VMware Workstation and go to Edit and "Virtual Network Editor.
+  - Create new VMnet with NAT configurations.
 
-![image](https://github.com/forza-dc/Enhancing-Web-Application-Security-DevSecOps-and-OWASP-ZAP/blob/main/Pulling%20Owasp%20zap.png) 
+## UbuntuServer VM Installation and Configuration:
 
-## Running OWASP ZAP in Docker Container
+ - Download Ubuntu Server ISO and create a VM.
+ - Remember to check Install OpenSSHserver check box during installation.
+ - Ping google.com from Ubuntu Server terminal (ping–c 4 google.com).
 
-Executes a container based on the (zap2docker-weekly) image in interactive mode, launching a Bash shell within the container for manual operations or configurations.
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Img%202.png) 
 
-          docker run -it ictu/zap2docker-weekly /bin/bash
 
-![image](https://github.com/forza-dc/Enhancing-Web-Application-Security-DevSecOps-and-OWASP-ZAP/blob/main/OwaspZap%20Command%20in%20docker.png) 
+## Windows VM Installation and Configuration:
+
+- Download WinDev2311Eval.zip.
+- Right click on WinDev2311Eval file and open with VMware workstation.
+
+
+### Disabling Windows Defender:
+
+1. After import, windows VM will login automatically with Username User. To disable windows defender, click on start à Settings.
+2. Click Privacy & Security.
+3. Open Windows Security.
+4. Click Manage Settings.
+5. Toggle OFF the "Tamper Protection" switch. When prompted, click "Yes".
+6. Toggle every other option OFF as well.
+7. Right click on start menu icon and type cmd, and open it as Administrator.
+8. Type following command in cmd and press Enter.
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Img%203.png)
+9. Again right click on start menu icon, click on "Run" and type "msconfig" and press Enter.
+10. Go to "Boot" tab and select "Boot Options". Check the box for "Safe boot" and "Minimal".
+11. When prompted, click on Restart.
+12. Now, in Safe Mode, we'll disable some services via the Registry. Click the "Start" menu icon Type "regedit" into the search bar and hit Enter. For each of the following registry locations, you'll need to browse to the key, find the "Start" value, and change it to 4.
+    
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Sense
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdBoot
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinDefend
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdNisDrv
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdNisSvc
+            Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WdFilter
 
 ## Executing Automated OWASP ZAP Security Scan
 
