@@ -357,7 +357,7 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 ## Concluison:
 
-👨🏻‍💻 🚀 In conclusion, the SOC Analyst home lab has provided invaluable hands-on experience, solidifying foundational skills essential for a future in cloud security engineering. This immersive journey has not only honed practical cybersecurity expertise but also paved the way for continued exploration and growth in tackling complex security challenges.👨🏻‍💻 🚀
+👨🏻‍💻 🚀 In conclusion, this SOC Analyst home lab provides invaluable hands-on experience, solidifying foundational skills essential for a future in cloud security engineering. This immersive journey has not only honed practical cybersecurity expertise but also paved the way for continued exploration and growth in tackling complex security challenges.👨🏻‍💻 🚀
 
 
 
