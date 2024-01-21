@@ -255,7 +255,7 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 7. Browse to the location we know our implant to be running from, i.e C:\Users\User\Downloads
 
-   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2030.jpg)
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2030.jpg)
 
 8. Inspect the hash of the suspicious executable by scanning it with VirusTotal.
 
