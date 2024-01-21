@@ -10,7 +10,7 @@ Through this structured exploration, individuals gain a comprehensive understand
     
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%20final.jpg) 
 
-### Overview
+# Overview
 
 ## Lab Components:
 1.	Virtualized Environments:
@@ -75,10 +75,15 @@ Through this structured exploration, individuals gain a comprehensive understand
   - Disable Windows Defender on Windows VM
 
 
+
+
+
 ## VMware Workstation Configuration:
 
   - Open VMware Workstation and go to Edit and "Virtual Network Editor.
   - Create new VMnet with NAT configurations.
+
+
 
 ## UbuntuServer VM Installation and Configuration:
 
@@ -89,10 +94,14 @@ Through this structured exploration, individuals gain a comprehensive understand
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Img%202.png) 
 
 
+
+
 ## Windows VM Installation and Configuration:
 
 - Download WinDev2311Eval.zip.
 - Right click on WinDev2311Eval file and open with VMware workstation.
+
+
 
 
 ### Disabling Windows Defender:
@@ -121,6 +130,8 @@ Through this structured exploration, individuals gain a comprehensive understand
     
 15. Go to "Boot" tab and select "Boot Options". Uncheck the box for "Safe boot", click Apply and OK.
 
+
+
 ### Prevent the VM from going into standby:
 
 After windows reboot in normal mode, open cmd with Administrative privileges and type following commands:
@@ -131,6 +142,8 @@ After windows reboot in normal mode, open cmd with Administrative privileges and
             powercfg /change monitor-timeout-dc 0 
             powercfg /change hibernate-timeout-ac 0 
             powercfg /change hibernate-timeout-dc 0
+
+
 
 ## Install LimaCharlie EDR on Windows VM:
 
@@ -197,6 +210,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2013.jpg)
    
+
+
 ## Generating C2 payload:
 
 1. Open SSH session on the Linux VM (like in previous steps) and perform following actions.
@@ -237,6 +252,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 8. As a result of above mentioned command, a payload will be downloaded from Ubuntu server on Windows VM.
 
+
+
 ## Starting Command and Control Session:
 
 1. Now that the payload is on the Windows VM, we must switch back to the Linux VM SSH session and enable the Sliver HTTP server to catch the callback.
@@ -275,6 +292,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2026.jpg)
 
      b. To check privileges, type command getprivs.
+
+
 
 
 ## Observe Endpoint Detection and Response (EDR) Telemetry:
@@ -318,6 +337,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 11. Examine other events related to your implant process. It is responsible for other events such as "SENSITIVE_PROCESS_ACCESS".
 
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2036.jpg)
+
+
 
 ## Detecting Events:
 
@@ -367,6 +388,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2046.jpg)
 
 
+
+
 ## Blocking Attacks:
 
 1. Open C2 shell again and type "shell" and press "y".
@@ -397,7 +420,8 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 9. Terminate your (now dead) system shell by pressing Ctrl + D.
 
-## Concluison:
+
+# Concluison:
 
 👨🏻‍💻 🚀 In conclusion, this SOC Analyst home lab provides invaluable hands-on experience, solidifying foundational skills essential for a future in cloud security engineering. This immersive journey has not only honed practical cybersecurity expertise but also paved the way for continued exploration and growth in tackling complex security challenges.👨🏻‍💻 🚀
 
