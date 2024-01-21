@@ -1,10 +1,52 @@
 # 👨🏻‍💻 🌎  Building a SOC Analysis Lab Environment At Home 👨🏻‍💻 🌎 
 ## Lab Overview
 
-This SOC Analyst home lab is an excellent opportunity to learn new skills beyond the basics and fundamentals. It involves a hands-on experience such as setting up virtualized environments, deploying operating systems, honing command line proficiency, and establishing C2 servers. The primary goal of the lab is to provide practical cybersecurity skills, addressing both offensive and defensive roles. It encompasses telemetry and EDR analysis using tools like Sysmon and LimaCharlie.
-Through this structured exploration, individuals gain a comprehensive understanding of security operations. This knowledge serves as a solid base for a seamless transition into cloud security engineering, enhancing proficiency in handling various cybersecurity challenges.
+This SOC Analyst home lab is an excellent opportunity to learn new skills beyond the basics and fundamentals. 
+
+It involves a hands-on experience such as setting up virtualized environments, deploying operating systems, honing command line proficiency, and establishing C2 servers. 
+
+The primary goal of the lab is to provide practical cybersecurity skills, addressing both offensive and defensive roles. It encompasses telemetry and EDR analysis using tools like Sysmon and LimaCharlie.
+Through this structured exploration, individuals gain a comprehensive understanding of security operations. 
     
   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%20final.jpg) 
+
+### Overview
+
+## Lab Components:
+1.	Virtualized Environments:
+•	Utilize virtualization platforms like VMware or VirtualBox for a realistic setup.
+2.	Operating System Deployment:
+•	Deploy Windows Server and Windows 10 VMs for targeted training scenarios.
+3.	Command Line Proficiency:
+•	Develop command line skills through practical exercises and simulated scenarios.
+4.	C2 Server Setup:
+•	Establish command and control servers to simulate offensive tactics.
+
+## Learning Objectives:
+1.	Telemetry and EDR Analysis:
+•	Implement and configure Sysmon for enhanced telemetry and event logging.
+•	Explore LimaCharlie for advanced endpoint detection and response (EDR).
+2.	Security Operations:
+•	Engage in structured exploration of security operations concepts.
+•	Practice offensive and defensive cybersecurity strategies.
+3.	Comprehensive Understanding:
+•	Gain a holistic view of security operations beyond fundamental concepts.
+•	Enhance proficiency in handling various cybersecurity challenges.
+
+## Simulated Findings:
+1.	Sysmon Alerts:
+•	Simulate alerts for unusual process execution and unauthorized registry modification.
+2.	LimaCharlie Insights:
+•	Generate simulated detections for anomalous network communication and attempted privilege escalation.
+
+## Concluding Insights:
+1.	Transition to Cloud Security Engineering:
+•	Leverage the acquired skills as a solid foundation for transitioning into cloud security engineering.
+•	Bridge the gap between traditional cybersecurity practices and emerging cloud security challenges.
+2.	Enhancing Cybersecurity Proficiency:
+•	Recognize the importance of hands-on experience in honing cybersecurity skills.
+•	Understand the practical application of telemetry analysis and EDR in real-world scenarios.
+
 
 
 ## Lab Requirements:
