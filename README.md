@@ -221,17 +221,140 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
         use [session_id]
 
-![image]() 
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2025.jpg) 
 
 6. You are now interacting directly with the C2 session on the Windows VM. Let's run a few basic commands.
 
      a. Get basic info about the session (type info).
 
-     ![image]()
+     ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2026.jpg)
 
      b. To check privileges, type command getprivs.
 
 
+## Observe Endpoint Detection and Response (EDR) Telemetry:
+
+1. Log into LimaCharlie web UI and click on Sensors on left menu and click on active Windows sensor (windev2311eval.localdomain)
+2. On the new left-side menu for this sensor, click "Processes".
+3. Now we filter our C2 process on the target windows VM.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2027.jpg)
+
+4. Now we see where this process is communicating on the Network.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2028.jpg)
+
+5. Let's see where it is communicating.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2029.jpg)
+
+6. Now click the "File System" tab on the left-side menu.
+
+7. Browse to the location we know our implant to be running from, i.e C:\Users\User\Downloads
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2030.jpg)
+
+8. Inspect the hash of the suspicious executable by scanning it with VirusTotal.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2031.jpg)
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2032.jpg)
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2033.jpg)
+   
+9. Click "Timeline" on the left-side menu of our sensor. This is a near real-time view of EDR telemetry + event logs streaming from this system.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2034.jpg)
+
+10. Filter timeline with name of your implant.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2035.jpg)
+
+11. Examine other events related to your implant process. It is responsible for other events such as "SENSITIVE_PROCESS_ACCESS".
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2036.jpg)
+
+## Detecting Events:
+
+1. Get back onto an SSH session on the Linux VM, and drop into a C2 session on your victim. Run the following commands within the Sliver session on your victim host Getprivs
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2037.jpg)
+
+2. Next, let's do something adversaries love to do for stealing credentials on a system - dump the lsass.exe process from memory. Execute the following command: procdump -n lsass.exe -s lsass.dmp
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2038.jpg)
+
+3. Click on Timeline on LimaCharlie left menu and filter for "SENSITIVE_PROCESS_ACCESS".
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2039.jpg)
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2040.jpg)
+   
+4. Click on any event to see the details.
+5. Now we will create a Detection & Response rule for this event.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2041.jpg)
+
+6. In the "Detect" section of the new rule, remove all contents and replace them with this
+   
+        event: SENSITIVE_PROCESS_ACCESS
+        op: ends with
+        path: event/*/TARGET/FILE_PATH value: lsass.exe
+   
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2042.jpg)
+
+7. In the "Respond" section of the new rule, remove all contents and replace them with this
+
+        action: report name: LSASS access
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2043.jpg)
+
+8. Now test the Rule by clicking on "Test Event" at the bottom of the page.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2044.jpg)
+
+9. Save the Rule and give it a name
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2045.jpg)
+
+10. Now return to Sliver server console and rerun the same procdump command. After rerunning the procdump command, go to the "Detections" tab on the LimaCharlie main left-side menu.
+
+![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2046.jpg)
+
+
+## Blocking Attacks:
+
+1. Open C2 shell again and type "shell" and press "y".
+
+2. In the new System shell, run the following command
+
+       vssadmin delete shadows /all
+
+3. Browse over to LimaCharlie's detection tab to see default Sigma rules.
+
+   ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2047.jpg)
+
+4. Click to expand the detection and examine all of the metadata contained within the detection itself.
+
+5. Craft a Detection & Response (D&R) rule from this event.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2048.jpg)
+
+6. Add the following Response rule to the Respond section.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2049.jpg)
+
+7. Save your rule with the following name: vss_deletion_kill_it.
+
+8. Run the command to delete volume shadows again (vssadmin delete shadows /all). The command will return with the same error but the execution of command is enough to trigger the incident. Then type command "whoami". If our D&R rule worked successfully, the system shell will hang and fail to return anything from the whoami command, because the parent process was terminated.
+
+    ![image](https://github.com/forza-dc/SOC-Lab-at-Home/blob/main/SOC%20Lab%20Image%2050.jpg)
+
+9. Terminate your (now dead) system shell by pressing Ctrl + D.
+
+## Concluison:
+
+👨🏻‍💻 🚀 In conclusion, the SOC Analyst home lab has provided invaluable hands-on experience, solidifying foundational skills essential for a future in cloud security engineering. This immersive journey has not only honed practical cybersecurity expertise but also paved the way for continued exploration and growth in tackling complex security challenges.👨🏻‍💻 🚀
 
 
 
@@ -242,4 +365,6 @@ We'll perform these steps from HOST system, by using SSH to access the Linux VM.
 
 
 
-👨🏻‍💻 🚀
+
+   
+
